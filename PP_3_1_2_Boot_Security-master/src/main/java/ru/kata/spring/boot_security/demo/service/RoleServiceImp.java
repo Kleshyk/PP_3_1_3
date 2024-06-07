@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class RoleServiceImp implements RoleService {
     private final RoleRepository roleRepository;
 
