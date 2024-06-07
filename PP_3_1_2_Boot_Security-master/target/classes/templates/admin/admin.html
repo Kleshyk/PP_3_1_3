@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin_Page</title>
+</head>
+<body>
+<h1>Welcome to Admin Page!</h1>
+<h2>What you want to do?</h2>
+<br>
+<a href="/admin/create">Create a new User</a>
+<br>
+<br>
+<a href="/admin/allUsers">List of Users</a>
+<br>
+<br>
+<form th:action="@{/logout}" th:method="POST" target="_self">
+    <button>Exit</button>
+</form>
+</body>
+</html>
