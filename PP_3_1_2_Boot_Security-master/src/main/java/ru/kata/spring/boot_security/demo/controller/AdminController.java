@@ -28,23 +28,23 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping
+  /*  @GetMapping
     public String admin(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "admin/admin";
-    }
+    }*/
 
 
 
 
-    @GetMapping("/allUsers")
+    @GetMapping
     public String getAllUsers(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         User user = userService.findByUsername(userDetails.getUsername());
         model.addAttribute("principal", user);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("role", roleService.findAll());
         model.addAttribute("new_user", new User());
-        return "admin/allUsers";
+        return "admin/admin";
     }
 
     @GetMapping("/updateUser")
