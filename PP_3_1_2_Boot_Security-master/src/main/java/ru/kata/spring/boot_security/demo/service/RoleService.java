@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface RoleService {
     List<Role> findAll();
 
-    List<Role> getRole();
+    List<Role> getRoles(String name);
+
+    Role getRoleName(String name);
 
 
 

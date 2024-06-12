@@ -6,6 +6,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,10 +26,16 @@ public class RoleServiceImp implements RoleService {
     }
 
     @Override
-    public List<Role> getRole() {
-        return roleRepository.findAll();
+    public List<Role> getRoles(String name) {
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleRepository.findByRole(name));
+        return roles;
     }
 
+    @Override
+    public Role getRoleName(String name) {
+        return roleRepository.findByRole(name);
+    }
 
 
 }

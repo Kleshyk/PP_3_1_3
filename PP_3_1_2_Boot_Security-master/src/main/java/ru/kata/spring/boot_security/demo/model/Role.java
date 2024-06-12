@@ -5,7 +5,8 @@ import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -20,6 +21,10 @@ public class Role implements GrantedAuthority {
     @NotNull
     private String role;
 
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
+
     public Long getId() {
         return id;
     }
@@ -32,6 +37,13 @@ public class Role implements GrantedAuthority {
     public void setRole(String role) {
         this.role = role;
     }
+    public List<User> getUsers() {
+        return users;
+    }
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
 
     public Role(Long id, String role) {
         this.id = id;
@@ -79,6 +91,9 @@ public class Role implements GrantedAuthority {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+    public String getRoleNameWithoutRole() {
+        return role.substring(5);
     }
 
 }
