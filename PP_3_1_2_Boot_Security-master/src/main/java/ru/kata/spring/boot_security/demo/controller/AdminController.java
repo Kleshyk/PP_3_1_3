@@ -29,15 +29,6 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-  /*  @GetMapping
-    public String admin(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "admin/admin";
-    }*/
-
-
-
-
     @GetMapping
     public String getAllUsers(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         User user = userService.findByUsername(userDetails.getUsername());
@@ -47,21 +38,6 @@ public class AdminController {
         model.addAttribute("new_user", new User());
         return "admin/admin";
     }
-
-  /*  @GetMapping("/updateUser")
-    public String getUserById(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("roles", roleService.findAll());
-        return "admin/updateUser";
-    }*/
-
-  /*  @GetMapping("/create")
-    public String newUser(Model model, @ModelAttribute("new_user") User user) {
-        List<Role> roles = roleService.findAll();
-        model.addAttribute("rolesAdd", roles);
-        return "admin/create";
-    }*/
-
 
     @PostMapping("/create")
     public String addUser(@ModelAttribute("user") User user,
