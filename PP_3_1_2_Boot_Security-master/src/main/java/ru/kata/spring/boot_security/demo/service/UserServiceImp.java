@@ -39,11 +39,10 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void addUser(User user) {
-        user.setRoles(user.getRoles().stream()
-                .map(role -> roleService.getRoleName(role.getRole())).collect(Collectors.toSet()));
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        }
+        user.setRoles(roleService.getRoles("ROLE_USER").stream().map(role -> roleService.getRoleName(String.valueOf(role))).collect(Collectors.toSet()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
 
     @Override
     @Transactional

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 const ROLE_USER = {roleId: 2, roleName: "ROLE_USER"};
-const ROLE_ADMIN = {roleId: 1, roleName: "ROLE_ADMIN"};
+const ROLE_ADMIN = {roleID: 1, roleName: "ROLE_ADMIN"};
 //емаил пользователя в навбаре
 
 async function showUserEmailOnNavbar() {

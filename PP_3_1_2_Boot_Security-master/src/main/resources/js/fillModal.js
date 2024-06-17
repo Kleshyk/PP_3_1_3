@@ -51,4 +51,3 @@ async function fillModal(modal) {
         rolesSelect.innerHTML = userRolesHTML;
     })
 }
-
