@@ -1,7 +1,10 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
-import lombok.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "users")
@@ -39,11 +43,13 @@ public class User implements UserDetails {
     private String password;
 
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -81,10 +87,10 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -97,25 +103,30 @@ public class User implements UserDetails {
         return getRoles();
     }
 
+
     @Override
     public String getUsername() {
         return getEmail();
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
 
     @Override
     public boolean isEnabled() {

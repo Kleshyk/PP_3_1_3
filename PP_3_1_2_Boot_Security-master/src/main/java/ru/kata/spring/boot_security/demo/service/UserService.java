@@ -9,13 +9,13 @@ import java.util.Optional;
 public interface UserService {
     List<User> getAllUsers();
 
-    void addUser(User user, List<String> roles);
+    void addUser(User user);
 
     void deleteUser(Long id);
 
-    void updateUser(User user, List<String> roles);
+    void updateUser(User user);
 
-    Optional<User> getUserById(Long id);
+    User getUserById(Long id);
 
     User findByUsername(String username);
 
