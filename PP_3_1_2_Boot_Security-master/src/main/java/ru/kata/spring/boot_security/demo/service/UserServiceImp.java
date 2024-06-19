@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -38,8 +36,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void addUser(User user) {
-        user.setRoles(roleService.getRoles("ROLE_USER").stream().map(role -> roleService.getRoleName(String.valueOf(role))).collect(Collectors.toSet()));
+    public void addUser(User user, List<String> roles) {
+        user.setRoles(roles.stream().map(role->roleService.getRoleName(role)).collect(Collectors.toList()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

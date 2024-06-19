@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -32,8 +34,9 @@ public class RestAdminController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> saveNewUser(@RequestBody @Valid User user) {
-        userService.addUser(user);
+    public ResponseEntity<HttpStatus> saveNewUser(@RequestBody User user,
+                                                  @RequestParam (value = "roles", required = false) List<String> roles ) {
+        userService.addUser(user, roles);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -53,5 +56,9 @@ public class RestAdminController {
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+    @GetMapping("/roles")
+    public ResponseEntity<List<Role>> getAllRoles() {
+        return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
     }
 }

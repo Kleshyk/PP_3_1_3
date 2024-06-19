@@ -5,11 +5,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     await addNewUserForm();
     await DeleteModalHandler();
     await EditModalHandler();
+    await getRoles();
 });
-
-const ROLE_USER = {roleId: 2, roleName: "ROLE_USER"};
-const ROLE_ADMIN = {roleID: 1, roleName: "ROLE_ADMIN"};
-//емаил пользователя в навбаре
+async function getRoles() {
+    const response = await fetch("http://localhost:8080/api/admin/roles");
+    return await response.json();
+}
 
 async function showUserEmailOnNavbar() {
     const currentUserEmailNavbar = document.getElementById("currentUserEmailNavbar")

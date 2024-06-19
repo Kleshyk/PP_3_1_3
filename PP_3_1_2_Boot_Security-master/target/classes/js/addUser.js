@@ -14,17 +14,19 @@ async function addNewUserForm() {
         const age = newUserForm.querySelector("#age").value.trim();
         const email = newUserForm.querySelector("#email").value.trim();
         const password = newUserForm.querySelector("#password").value.trim();
-
-        const rolesSelected = document.getElementById("roles");
-
-        let roles=[];
+        const rolesSelected = document.getElementById('roles');
+        let allRole = await getRoles();
+        let AllRoles = {};
+        for (let role of allRole) {
+            AllRoles[role.role] = role.id;
+        }
+        let roles = [];
         for (let option of rolesSelected.selectedOptions) {
-            if(option.value === ROLE_USER.roleName) {
-                roles.push(ROLE_USER);
-            } else if (option.value === ROLE_ADMIN.roleName) {
-                roles.push(ROLE_ADMIN);
+            if (Object.keys(AllRoles).indexOf(option.value) !== -1) {
+                roles.push({roleId: AllRoles[option.value], name: option.value});
             }
         }
+
 
         const newUserData = {
             name: name,
